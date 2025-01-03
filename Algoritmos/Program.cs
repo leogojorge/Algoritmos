@@ -19,6 +19,7 @@ namespace Algoritmos
             {
                 int[] listForSelection = (int[])list.Clone();
                 int[] listForBubble = (int[])list.Clone();
+                int[] listForInsertion = (int[])list.Clone();
 
                 Console.WriteLine("List being sorted " + ArrayAsString(list));
                 Console.WriteLine("List length " + list.Length);
@@ -26,9 +27,11 @@ namespace Algoritmos
 
                 var sortedWithSelection = SelectionSort(listForSelection, out int timesPerformedTheSwapForSelectionSort, out int timesNotPerformedTheSwapForSelectionSort, out int timesCheckedForSelectionSort);
                 var sortedWithBubble = BubbleSort(listForBubble, out int timesPerformedTheSwapForBubbleSort, out int timesNotPerformedTheSwapForBubbleSort, out int timesCheckedForBubbleSort);
+                var sortedWithInsertion = InsertionSort(listForInsertion, out int timesPerformedTheSwapForInsertionSort, out int timesNotPerformedTheSwapForInsertionSort, out int timesCheckedForInsertionSort);
 
                 Console.WriteLine("List sorted with selection - " + ArrayAsString(sortedWithSelection));
-                Console.WriteLine("List sorted with bubble - " + ArrayAsString(sortedWithBubble));
+                Console.WriteLine("List sorted with bubble    - " + ArrayAsString(sortedWithBubble));
+                Console.WriteLine("List sorted with insertion - " + ArrayAsString(sortedWithInsertion));
                 Console.WriteLine();
 
                 Console.WriteLine("Selection Sort Results:");
@@ -44,8 +47,48 @@ namespace Algoritmos
                 Console.WriteLine("TimesChecked " + timesCheckedForBubbleSort);
 
                 Console.WriteLine();
-                Console.WriteLine("Next iteration");
+
+                Console.WriteLine("Insertion Sort Results:");
+                Console.WriteLine("TimesPerformedTheSwap " + timesPerformedTheSwapForInsertionSort);
+                Console.WriteLine("TimesNotPerformedTheSwap " + timesNotPerformedTheSwapForInsertionSort);
+                Console.WriteLine("TimesChecked " + timesCheckedForInsertionSort);
+
+                Console.WriteLine();
+                Console.WriteLine("Next iteration **************************");
             }
+        }
+
+        //insere o menor item no início da lista, como se fosse uma pessoa ordenando as cartas na mão em um jogo de baralho. começa comparando a segunda carta com a primeira. depois a terceira com a segunda, caso troque, a segunda com a primeira novamente e assim por diante.
+        public static int[] InsertionSort(int[] list, out int timesPerformedTheSwap, out int timesNotPerformedTheSwap, out int timesChecked)
+        {
+            timesPerformedTheSwap = 0;
+            timesNotPerformedTheSwap = 0;
+            timesChecked = 0;
+
+            for (int i = 1; i < list.Length; i++)
+            {
+
+                int currentIndexValue = list[i];
+
+                for (int indexToBeCompared = i - 1; indexToBeCompared >= 0; indexToBeCompared--)
+                {
+                    timesChecked++;
+
+                    if (currentIndexValue > list[indexToBeCompared])
+                    {
+                        timesNotPerformedTheSwap++;
+                        continue;
+                    }
+
+                    int temp = list[indexToBeCompared + 1];
+                    list[indexToBeCompared + 1] = list[indexToBeCompared];
+                    list[indexToBeCompared] = temp;
+
+                    timesPerformedTheSwap++;
+                }
+            }
+
+            return list;
         }
 
         public static int[] BubbleSort(int[] list, out int timesPerformedTheSwap, out int timesNotPerformedTheSwap, out int timesChecked)
@@ -56,19 +99,19 @@ namespace Algoritmos
 
             for (int i = 0; i < list.Length - 1; i++)
             {
-                for (int currentIndex = 0; currentIndex < list.Length - 1; currentIndex++)
+                for (int indexToBeCompared = 0; indexToBeCompared < list.Length - 1; indexToBeCompared++)
                 {
                     timesChecked++;
 
-                    int indexNextToTheCurrent = currentIndex + 1;
+                    int indexNextToTheCurrent = indexToBeCompared + 1;
 
-                    if (list[currentIndex] < list[indexNextToTheCurrent])
+                    if (list[indexToBeCompared] < list[indexNextToTheCurrent])
                     {
                         timesNotPerformedTheSwap++;
                         continue;
                     }
 
-                    (list[currentIndex], list[indexNextToTheCurrent]) = (list[indexNextToTheCurrent], list[currentIndex]); //usando tupla para trocar valores sem temp
+                    (list[indexToBeCompared], list[indexNextToTheCurrent]) = (list[indexNextToTheCurrent], list[indexToBeCompared]); //usando tupla para trocar valores sem temp
                     timesPerformedTheSwap++;
                 }
 
