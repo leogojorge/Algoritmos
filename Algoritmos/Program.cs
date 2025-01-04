@@ -1,5 +1,5 @@
-﻿using Algoritmos.Sort;
-using System.Reflection;
+﻿using Algoritmos.Data;
+using Algoritmos.Sort;
 using System.Text;
 
 namespace Algoritmos
@@ -15,6 +15,7 @@ namespace Algoritmos
                 new[] { 7, 5, 1, 8, 3, 3, 3, 8, 9, 1, 10 },
                 new[] { 9, 8, 7, 6, 5, 4, 3, 2, 1 },
                 new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 },
+                IntArrayGenerator.Generate(200, 0, 10000)
             };
 
             foreach (var list in allLists)
@@ -69,7 +70,8 @@ namespace Algoritmos
 
             foreach (int i in array)
             {
-                result.Append(i.ToString());
+                result.Append(i);
+                result.Append(',');
             }
 
             return result.ToString();
