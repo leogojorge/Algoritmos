@@ -43,4 +43,4 @@ msbuild.wrn
 .vs/
 
 # Tests results
-tests/
+TestResults/

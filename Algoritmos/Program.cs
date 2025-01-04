@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Reflection;
+using System.Text;
 
 namespace Algoritmos
 {
@@ -20,6 +21,7 @@ namespace Algoritmos
                 int[] listForSelection = (int[])list.Clone();
                 int[] listForBubble = (int[])list.Clone();
                 int[] listForInsertion = (int[])list.Clone();
+                int[] listForMerge = (int[])list.Clone();
 
                 Console.WriteLine("List being sorted " + ArrayAsString(list));
                 Console.WriteLine("List length " + list.Length);
@@ -28,10 +30,12 @@ namespace Algoritmos
                 var sortedWithSelection = SelectionSort(listForSelection, out int timesPerformedTheSwapForSelectionSort, out int timesNotPerformedTheSwapForSelectionSort, out int timesCheckedForSelectionSort);
                 var sortedWithBubble = BubbleSort(listForBubble, out int timesPerformedTheSwapForBubbleSort, out int timesNotPerformedTheSwapForBubbleSort, out int timesCheckedForBubbleSort);
                 var sortedWithInsertion = InsertionSort(listForInsertion, out int timesPerformedTheSwapForInsertionSort, out int timesNotPerformedTheSwapForInsertionSort, out int timesCheckedForInsertionSort);
+                MergeSort(listForMerge);
 
                 Console.WriteLine("List sorted with selection - " + ArrayAsString(sortedWithSelection));
                 Console.WriteLine("List sorted with bubble    - " + ArrayAsString(sortedWithBubble));
                 Console.WriteLine("List sorted with insertion - " + ArrayAsString(sortedWithInsertion));
+                Console.WriteLine("List sorted with merge     - " + ArrayAsString(listForMerge));
                 Console.WriteLine();
 
                 Console.WriteLine("Selection Sort Results:");
@@ -58,6 +62,56 @@ namespace Algoritmos
             }
         }
 
+        public static void MergeSort(int[] list, int startIndex = 0, int endIndex = 0)//3
+        {
+            if (endIndex == 0)
+                endIndex = list.Length; //1
+
+            bool stillRemainMoreThanOneItemInTheList = endIndex - startIndex > 1;
+
+            if (stillRemainMoreThanOneItemInTheList)
+            {
+                int middleIndex = (startIndex + endIndex) / 2;
+                MergeSort(list, startIndex, middleIndex);//left half 0 , 1
+                MergeSort(list, middleIndex, endIndex);  //right half 1 , 3
+                Merge(list, startIndex, middleIndex, endIndex);
+            }
+        }
+
+        private static void Merge(int[] list, int startIndex, int middleIndex, int endIndex)
+        {
+            int[] leftList = list[startIndex..middleIndex];
+            int[] rightList = list[middleIndex..endIndex];
+
+            int leftListCurrentIndex = 0;
+            int rightListCurrentIndex = 0;
+
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                if (rightListCurrentIndex >= rightList.Length)
+                {
+                    list[i] = leftList[leftListCurrentIndex];
+                    leftListCurrentIndex++;
+                }
+                else if (leftListCurrentIndex >= leftList.Length)
+                {
+                    list[i] = rightList[rightListCurrentIndex];
+                    rightListCurrentIndex++;
+                }
+                else if (leftList[leftListCurrentIndex] < rightList[rightListCurrentIndex])
+                {
+                    list[i] = leftList[leftListCurrentIndex];
+                    leftListCurrentIndex++;
+                }
+                else
+                {
+                    list[i] = rightList[rightListCurrentIndex];
+                    rightListCurrentIndex++;
+                }
+            }
+        }
+
+
         //insere o menor item no início da lista, como se fosse uma pessoa ordenando as cartas na mão em um jogo de baralho. começa comparando a segunda carta com a primeira. depois a terceira com a segunda, caso troque, a segunda com a primeira novamente e assim por diante.
         public static int[] InsertionSort(int[] list, out int timesPerformedTheSwap, out int timesNotPerformedTheSwap, out int timesChecked)
         {
@@ -67,7 +121,6 @@ namespace Algoritmos
 
             for (int i = 1; i < list.Length; i++)
             {
-
                 int currentIndexValue = list[i];
 
                 for (int indexToBeCompared = i - 1; indexToBeCompared >= 0; indexToBeCompared--)
