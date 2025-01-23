@@ -1,4 +1,5 @@
 ﻿using Algoritmos.Data;
+using Algoritmos.LeetCode;
 using Algoritmos.Sort;
 using System.Text;
 
@@ -8,6 +9,15 @@ namespace Algoritmos
     {
         static void Main(string[] args)
         {
+            RemoveElement27.RemoveElement([0],0);
+
+            FindFirstIndex.StrStr("hello", "ll");
+
+            int[] nums = { 1, 1, 1, 2, 2, 3, };
+            //RemoveDuplicatesFromSortedArray.RemoveDuplicates(nums);
+            RemoveDuplicatesFromSortedArrayII_80.RemoveDuplicates(nums);
+
+
             var allLists = new List<int[]>
             {
                 new[] { 5, 4, 3, 2, 1 },
