@@ -25,63 +25,51 @@
             sinlgyLinkedList.Print();
 
             sinlgyLinkedList.AddLast(44);
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             sinlgyLinkedList.Print();
 
             sinlgyLinkedList.AddFirst(67);
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             sinlgyLinkedList.Print();
 
             sinlgyLinkedList.Add(13, 2);
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             sinlgyLinkedList.Print();
 
             sinlgyLinkedList.Remove(44);
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             sinlgyLinkedList.Print();
                         
-            Console.WriteLine(sinlgyLinkedList.FindLast());
-            sinlgyLinkedList.Print();
-
             sinlgyLinkedList.Remove(22);
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             Console.WriteLine(sinlgyLinkedList.FindLast());
-            sinlgyLinkedList.Print();
 
             sinlgyLinkedList.Remove(8);
-            Console.WriteLine(sinlgyLinkedList.GetSize());
-
-            Console.WriteLine(sinlgyLinkedList.FindLast());
             sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.Print();
+            Console.WriteLine(sinlgyLinkedList.FindLast());
 
             sinlgyLinkedList.RemoveFirst();
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             sinlgyLinkedList.Print();
 
             sinlgyLinkedList.RemoveLast();
-            Console.WriteLine(sinlgyLinkedList.GetSize());
 
             Console.WriteLine(sinlgyLinkedList.FindLast());
             sinlgyLinkedList.Print();
 
             sinlgyLinkedList.RemoveLast();
-            Console.WriteLine(sinlgyLinkedList.GetSize());
-
-            Console.WriteLine(sinlgyLinkedList.FindLast());
+            
             sinlgyLinkedList.Print();
+            
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+            Console.WriteLine(sinlgyLinkedList.FindLast());
                         
             Console.WriteLine(sinlgyLinkedList.Contains(3));
             Console.WriteLine(sinlgyLinkedList.Contains(4));
             Console.WriteLine(sinlgyLinkedList.Contains(1));
             Console.WriteLine(sinlgyLinkedList.Contains(100));
-
-
 
         }
 

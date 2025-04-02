@@ -66,9 +66,17 @@ namespace DataStructure
             return true;
         }
 
+        public void AddFirstItem(T value)
+        {
+            this.Head = this.Last = new LinkedNode<T>(value);
+            Size++;
+
+            return;
+        }
+
         public void AddFirst(T value)
         {
-            this.Head = this.Last = new LinkedNode<T>(value, this.Head);
+            this.Head = new LinkedNode<T>(value, this.Head);
             Size++;
 
             return;
@@ -79,32 +87,25 @@ namespace DataStructure
             this.Last.Next = new LinkedNode<T>(value);
             this.Last = this.Last.Next;
             Size++;
+        }
 
-            return;
+        private void SetLast(LinkedNode<T> lastNode)
+        {
+            this.Last = lastNode;
         }
 
         public bool Remove(T value)
         {
-            var node = this.Head;
-            var previousNode = this.Head;
+            var (previousNode, node, index) = this.Find(value);
 
-            do
-            {
-                if (node.Value.Equals(value))
-                {
-                    previousNode.Next = node.Next;
+            if (index == -1) return false;
 
-                    if (node.Next is null)
-                        this.Last = previousNode;
+            previousNode.Next = node.Next;
 
-                    Size--;
-                    return true;
-                }
+            if (node.Next is null)
+                this.SetLast(previousNode);
 
-                previousNode = node;
-                node = node.Next;
-
-            } while (node is not null);
+            Size--;
 
             return false;
         }
@@ -122,7 +123,7 @@ namespace DataStructure
             {
                 this.Head = this.Head.Next;
             }
-            
+
             Size--;
             return true;
         }
@@ -158,21 +159,35 @@ namespace DataStructure
 
         public bool Contains(T value)
         {
-            var node = this.Head;
+            var (previousNode, node, index) = this.Find(value);
 
-            do
-            {
-                if(node.Value.Equals(value)) return true;
+            if (index == -1) return false;
 
-                node = node.Next;
-            } while (node is not null);
-
-            return false;
+            return true;
         }
 
         public int GetSize()
         {
             return this.Size;
+        }
+
+        public (LinkedNode<T> previousNode, LinkedNode<T> result, int index) Find(T value, int endIndex = 0)
+        {
+            endIndex = endIndex == 0 ? this.Size : endIndex;
+
+            var node = this.Head;
+            var previousNode = this.Head;
+
+            for (int i = 0; i < endIndex; i++)
+            {
+                if (node.Value.Equals(value))
+                    return (previousNode, node, i);
+
+                previousNode = node;
+                node = node.Next;
+            }
+
+            return (null, null, -1);
         }
 
         public void Print()
@@ -196,25 +211,23 @@ namespace DataStructure
 
             Console.WriteLine(print);
         }
+    }
+}
 
-        //get
+public class LinkedNode<T>
+{
+    public T? Value { get; set; }
+
+    public LinkedNode<T>? Next { get; set; }
+
+    public LinkedNode(T value)
+    {
+        this.Value = value;
     }
 
-    public class LinkedNode<T>
+    public LinkedNode(T value, LinkedNode<T> next)
     {
-        public T? Value { get; set; }
-
-        public LinkedNode<T>? Next { get; set; }
-
-        public LinkedNode(T value)
-        {
-            this.Value = value;
-        }
-
-        public LinkedNode(T value, LinkedNode<T> next)
-        {
-            this.Value = value;
-            this.Next = next;
-        }
+        this.Value = value;
+        this.Next = next;
     }
 }
