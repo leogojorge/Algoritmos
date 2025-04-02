@@ -4,6 +4,89 @@
     {
         static void Main(string[] args)
         {
+            OperateOnSinlgyLinkedList();
+            //OperateOnStackArray();
+        }
+
+        public static void OperateOnSinlgyLinkedList()
+        {
+            var sinlgyLinkedList = new SinglyLinkedList<int>();
+
+            sinlgyLinkedList.Add(3);
+            sinlgyLinkedList.Add(1);
+            sinlgyLinkedList.Add(4);
+            sinlgyLinkedList.Add(7);
+            sinlgyLinkedList.Add(23);
+            sinlgyLinkedList.Add(8);
+            sinlgyLinkedList.Add(22);
+            
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.AddLast(44);
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.AddFirst(67);
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.Add(13, 2);
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.Remove(44);
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            sinlgyLinkedList.Print();
+                        
+            Console.WriteLine(sinlgyLinkedList.FindLast());
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.Remove(22);
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            Console.WriteLine(sinlgyLinkedList.FindLast());
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.Remove(8);
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            Console.WriteLine(sinlgyLinkedList.FindLast());
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.RemoveFirst();
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.RemoveLast();
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            Console.WriteLine(sinlgyLinkedList.FindLast());
+            sinlgyLinkedList.Print();
+
+            sinlgyLinkedList.RemoveLast();
+            Console.WriteLine(sinlgyLinkedList.GetSize());
+
+            Console.WriteLine(sinlgyLinkedList.FindLast());
+            sinlgyLinkedList.Print();
+                        
+            Console.WriteLine(sinlgyLinkedList.Contains(3));
+            Console.WriteLine(sinlgyLinkedList.Contains(4));
+            Console.WriteLine(sinlgyLinkedList.Contains(1));
+            Console.WriteLine(sinlgyLinkedList.Contains(100));
+
+
+
+        }
+
+        public static void OperateOnStackArray()
+        {
             var myStack = new StackArray<string>(10);
 
             myStack.Push("2");
