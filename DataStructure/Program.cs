@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 namespace DataStructure
 {
@@ -15,6 +16,15 @@ namespace DataStructure
         {
             int hashTableCapacity = 100;
             var hashTable = new HashTable(hashTableCapacity);
+
+            for (int i = 0; i < hashTableCapacity; i++)
+            {
+                string word = WordFinder2(i);
+                bool result = hashTable.Add(word);
+
+                Console.WriteLine("Could be mapped: " + result);
+            }
+
             hashTable.Add("ana");
             hashTable.Add("leo");
             hashTable.Add("fat");
@@ -23,8 +33,13 @@ namespace DataStructure
             hashTable.Add("car");
             hashTable.Add("nic");
             hashTable.Add("bre");
+            hashTable.Add("zzz");
 
             hashTable.Print();
+
+            int indexOfC = hashTable.Find("ade");
+
+            Console.WriteLine("C was found: " + indexOfC);
         }
 
         private static void OperateOnDoublyLinkedList()
@@ -193,6 +208,36 @@ namespace DataStructure
             myStack.Clear();
 
             myStack.Print();
+        }
+
+        public static string WordFinder2(int requestedLength)
+        {
+            Random rnd = new Random();
+            string[] consonants = { "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z" };
+            string[] vowels = { "a", "e", "i", "o", "u" };
+
+            string word = "";
+
+            if (requestedLength == 1)
+            {
+                word = GetRandomLetter(rnd, vowels);
+            }
+            else
+            {
+                for (int i = 0; i < requestedLength; i += 2)
+                {
+                    word += GetRandomLetter(rnd, consonants) + GetRandomLetter(rnd, vowels);
+                }
+
+                word = word.Replace("q", "qu").Substring(0, requestedLength); // We may generate a string longer than requested length, but it doesn't matter if cut off the excess.
+            }
+
+            return word;
+        }
+
+        private static string GetRandomLetter(Random rnd, string[] letters)
+        {
+            return letters[rnd.Next(0, letters.Length - 1)];
         }
     }
 }

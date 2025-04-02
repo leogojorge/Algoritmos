@@ -35,7 +35,23 @@
 
             if (node != null)
             {
-                //adiciona no proximo espaço livre
+                int i = hashCode;
+                Console.WriteLine("Collision on "+ hashCode);
+                for (; i < this.Bucket.Length; i++)
+                {
+                    if(this.Bucket[i] == null)
+                    {
+                        Console.WriteLine("Resolved on " + i);
+
+                        this.Bucket[i] = value;
+                        break;
+                    }
+                }
+
+                if(i >= this.Bucket.Length)
+                {
+                    return false;
+                }
             }
             else
             {
@@ -43,6 +59,18 @@
             }
 
             return true;
+        }
+
+        public int Find(string value)
+        {
+            int hashCode = this.GetHashCode(value);
+
+            for (int i = hashCode; i < this.Bucket.Length; i++)
+            {
+                if (this.Bucket[i] == value) return i;
+            }
+
+            return -1;
         }
 
         public void Print()
