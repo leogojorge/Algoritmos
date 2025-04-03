@@ -6,13 +6,33 @@
 
         public int Capacity { get; init; }
 
-        public int HashModulator { get; init; }
+        public int HashModulator { get; private set; }
 
         public HashTable(int capacity)
         {
-            this.Capacity = capacity * 2;
+            this.Capacity = capacity;
             this.Bucket = new string[this.Capacity];
-            this.HashModulator = this.Capacity - 1;
+            this.HashModulator = GenerateHashModulator();
+        }
+
+        private int GenerateHashModulator() //find the closest minor prime number from capacity
+        {
+            for (int i = this.Capacity; i > 0; i--)
+            {
+                if (i % 2 == 0) continue; //excluding pair numbers
+
+                for (int j = 2; j < i; j++)
+                {
+                    if (i % j == 0) break; 
+
+                    if(j == i-1) //if current number J == the number being valitaded if is prime -1, in other words, if all the numbers produce a mod > 0, that is a prime number
+                    {
+                        return j;
+                    }
+                }
+            }
+
+            return 0; //never will happen
         }
 
         public int GetHashCode(string key)
