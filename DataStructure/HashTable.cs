@@ -1,18 +1,99 @@
-﻿namespace DataStructure
+﻿using System.Net.Sockets;
+using System;
+
+namespace DataStructure
 {
     public class HashTable
     {
-        public string[] Bucket;
+        public string[] Bucket { get; private set; }
 
-        public int Capacity { get; init; }
+        public int Capacity { get; private set; }
 
         public int HashModulator { get; private set; }
+
+        public float LoadFactor { get; private set; }
+
+        public int BucketsFilled { get; private set; }
+
+        public int CollisionCount { get; private set; } = 0;
 
         public HashTable(int capacity)
         {
             this.Capacity = capacity;
             this.Bucket = new string[this.Capacity];
             this.HashModulator = GenerateHashModulator();
+        }
+
+        public float CalculateLoadFactor()
+        {
+            float loadFactor = (float)this.BucketsFilled / this.Capacity;
+
+            if (loadFactor > 0.75)
+                this.Resize();
+
+            return loadFactor;
+        }
+
+        private void Resize()
+        {
+            int oldCapacity = this.Capacity;
+            this.Capacity = this.Capacity * 2;
+            var newBucket = new string[this.Capacity];
+            this.HashModulator = this.GenerateHashModulator();
+            this.LoadFactor = this.CalculateLoadFactor();
+            this.CollisionCount = 0;
+
+            this.AddForResizing(oldCapacity, newBucket);
+
+            this.Bucket = newBucket;
+            Console.WriteLine("Resized to capacity "+ this.Capacity);
+        }
+
+        private void AddForResizing(int oldCapacity, string[] newBucket)
+        {
+            for (int i = 0; i < oldCapacity; i++)
+            {
+                string value = this.Bucket[i];
+
+                if (value is null) continue;
+
+                var hashCode = this.GetHashCode(this.Bucket[i]);
+                var node = newBucket[hashCode];
+
+                if (node == null)
+                {
+                    AddForResizing(newBucket, hashCode, value);
+                }
+                else
+                {
+                    int x = hashCode + 1;
+                    for (; x < this.Capacity; x++)
+                    {
+                        if (newBucket[x] == null)
+                        {
+                            AddForResizingWithCollision(newBucket, x, value);
+                            break;
+                        }
+                    }
+
+                    if (x == this.Capacity - 1)
+                    {
+                        x = 0;
+                    }
+                }
+            }
+        }
+
+        private void AddForResizingWithCollision(string[] newBucket, int index, string value)
+        {
+            this.CollisionCount++;
+            AddForResizing(newBucket, index, value);
+        }
+
+        private void AddForResizing(string[] newBucket, int index, string value)
+        {
+            newBucket[index] = value;
+            this.LoadFactor = this.CalculateLoadFactor();
         }
 
         private int GenerateHashModulator() //find the closest minor prime number from capacity
@@ -23,11 +104,11 @@
 
                 for (int j = 2; j < i; j++)
                 {
-                    if (i % j == 0) break; 
+                    if (i % j == 0) break;
 
-                    if(j == i-1) //if current number J == the number being valitaded if is prime -1, in other words, if all the numbers produce a mod > 0, that is a prime number
+                    if (j == i - 1) //if current number J == the number being valitaded if is prime -1, in other words, if all the numbers produce a mod > 0, that is a prime number
                     {
-                        return j;
+                        return i;
                     }
                 }
             }
@@ -47,38 +128,51 @@
             return hashTotalNumber % HashModulator;
         }
 
-        public bool Add(string value)
+
+        private void Add(int index, string value)
+        {
+            this.Bucket[index] = value;
+            this.BucketsFilled++;
+            this.LoadFactor = this.CalculateLoadFactor();
+        }
+
+        private void AddWithCollision(int index, string value)
+        {
+            this.Bucket[index] = value;
+            this.BucketsFilled++;
+            this.LoadFactor = this.CalculateLoadFactor();
+            this.CollisionCount++;
+        }
+
+        public void Add(string value)
         {
             int hashCode = this.GetHashCode(value);
 
             var node = this.Bucket[hashCode];
 
-            if (node != null)
+            if (node is null)
             {
-                int i = hashCode;
-                Console.WriteLine("Collision on "+ hashCode);
-                for (; i < this.Bucket.Length; i++)
-                {
-                    if(this.Bucket[i] == null)
-                    {
-                        Console.WriteLine("Resolved on " + i);
-
-                        this.Bucket[i] = value;
-                        break;
-                    }
-                }
-
-                if(i >= this.Bucket.Length)
-                {
-                    return false;
-                }
+                this.Add(hashCode, value);
+                return;
             }
             else
             {
-                this.Bucket[hashCode] = value;
-            }
 
-            return true;
+                int i = hashCode + 1;
+                for (; i < this.Bucket.Length; i++)
+                {
+                    if (this.Bucket[i] == null)
+                    {
+                        this.AddWithCollision(i, value);
+                        return;
+                    }
+                }
+
+                if (i == this.Bucket.Length - 1)
+                {
+                    i = 0;
+                }
+            }
         }
 
         public int Find(string value)
@@ -88,6 +182,11 @@
             for (int i = hashCode; i < this.Bucket.Length; i++)
             {
                 if (this.Bucket[i] == value) return i;
+
+                if (i == this.Bucket.Length - 1)
+                {
+                    i = 0;
+                }
             }
 
             return -1;

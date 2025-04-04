@@ -1,4 +1,8 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Data;
+using System.Reflection.Metadata.Ecma335;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace DataStructure
@@ -8,6 +12,7 @@ namespace DataStructure
         static void Main(string[] args)
         {
             OperateOnHashTable();
+
             //OperateOnDoublyLinkedList();
             //OperateOnSinlgyLinkedList();
             //OperateOnStackArray();
@@ -20,9 +25,7 @@ namespace DataStructure
             for (int i = 0; i < hashTableCapacity; i++)
             {
                 string word = WordFinder2(i);
-                bool result = hashTable.Add(word);
-
-                Console.WriteLine("Could be mapped: " + result);
+                hashTable.Add(word);
             }
 
             hashTable.Add("ana");
@@ -37,9 +40,8 @@ namespace DataStructure
 
             hashTable.Print();
 
-            int indexOfC = hashTable.Find("ade");
-
-            Console.WriteLine("C was found: " + indexOfC);
+            Console.WriteLine("Buckets Filled: " + hashTable.BucketsFilled);
+            Console.WriteLine("Collision Count: " + hashTable.CollisionCount);
         }
 
         private static void OperateOnDoublyLinkedList()
