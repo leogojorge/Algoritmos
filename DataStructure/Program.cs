@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Reflection.Metadata.Ecma335;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Xml.XPath;
 
 namespace DataStructure
 {
@@ -11,12 +13,31 @@ namespace DataStructure
     {
         static void Main(string[] args)
         {
-            OperateOnHashTable();
-
+            OperateOnBinaryTree();
+            //OperateOnHashTable();
             //OperateOnDoublyLinkedList();
             //OperateOnSinlgyLinkedList();
             //OperateOnStackArray();
         }
+
+        private static void OperateOnBinaryTree()
+        {
+            BinarySearchTree tree = new BinarySearchTree();
+
+            tree.Add(1);
+            tree.Add(5);
+            tree.Add(10);
+            tree.Add(3);
+            tree.Add(4);
+            
+            var result = tree.SumTree();
+            Console.WriteLine(result);
+
+            var searchedNode = tree.FindByDFSPreOrder(4);
+
+            Console.WriteLine("Node data: "+ searchedNode?.Data);
+        }
+
         private static void OperateOnHashTable()
         {
             int hashTableCapacity = 100;
