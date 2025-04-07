@@ -36,6 +36,13 @@ namespace DataStructure
             var searchedNode = tree.FindByDFSPreOrder(4);
 
             Console.WriteLine("Node data: "+ searchedNode?.Data);
+
+            var removedNode = tree.Remove(3);
+
+            Console.WriteLine("Node removed: "+ removedNode.Data);
+
+            var removedNode2 = tree.Remove(1);
+
         }
 
         private static void OperateOnHashTable()
