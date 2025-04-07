@@ -35,7 +35,10 @@ namespace DataStructure
 
             var searchedNode = tree.FindByDFSPreOrder(4);
 
-            Console.WriteLine("Node data: "+ searchedNode?.Data);
+            var searchedNodeWithBFS = tree.FindByBreadthFirstSearch(4);
+
+            Console.WriteLine("Node searched with DFS: " + searchedNode?.Data);
+            Console.WriteLine("Node searched with BFS: " + searchedNodeWithBFS?.Data);
 
             var removedNode = tree.Remove(3);
 
