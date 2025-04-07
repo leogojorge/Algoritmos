@@ -3,39 +3,39 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace DataStructure
 {
-    public class BinarySearchTree
+    public class BinarySearchTree //is not the same as a AVL tree. BST are not self balancing trees as AVLs.
     {
-        public BinaryNode Root { get; set; }
+        public BinarySearchNode Root { get; set; }
 
         public int SumTree()
         {
             return SumTree(this.Root);
         }
 
-        public int SumTree(BinaryNode node)
+        public int SumTree(BinarySearchNode node)
         {
             if (node is null) return 0;
 
             return node.Data + SumTree(node.Left) + SumTree(node.Right);
         }
 
-        public BinaryNode Add(int data)
+        public BinarySearchNode Add(int data)
         {
             return Add(this.Root, data);
         }
 
-        public BinaryNode Add(BinaryNode node, int data)
+        public BinarySearchNode Add(BinarySearchNode node, int data)
         {
             if (this.Root is null)
             {
-                this.Root = new BinaryNode(data);
+                this.Root = new BinarySearchNode(data);
                 Console.WriteLine("Adding Root" + data);
                 return this.Root;
             }
 
             if (node is null)
             {
-                return new BinaryNode(data);
+                return new BinarySearchNode(data);
             }
 
             if (node.Data > data)
@@ -50,7 +50,7 @@ namespace DataStructure
             return node;
         }
 
-        public BinaryNode Remove(int data)
+        public BinarySearchNode Remove(int data)
         {
             if (FindByDFSPreOrder(data) is null)
                 return null;
@@ -58,7 +58,7 @@ namespace DataStructure
             return Remove(this.Root, data);
         }
 
-        public BinaryNode Remove(BinaryNode node, int data)
+        public BinarySearchNode Remove(BinarySearchNode node, int data)
         {
             if (node is null) return null;
 
@@ -90,7 +90,7 @@ namespace DataStructure
             return node;
         }
 
-        private int FindClosestNumberBiggerThan(BinaryNode node)
+        private int FindClosestNumberBiggerThan(BinarySearchNode node)
         {
             node = node.Right;
             while (node.Left is not null)
@@ -100,7 +100,7 @@ namespace DataStructure
             return node.Data;
         }
 
-        private int FindClosestNumberSmallerThan(BinaryNode node)
+        private int FindClosestNumberSmallerThan(BinarySearchNode node)
         {
             node = node.Left;
             while (node is not null)
@@ -110,12 +110,12 @@ namespace DataStructure
             return node.Data;
         }
 
-        public BinaryNode FindByDFSPreOrder(int data)
+        public BinarySearchNode FindByDFSPreOrder(int data)
         {
             return this.FindByDFSPreOrder(data, this.Root);
         }
 
-        public BinaryNode FindByDFSPreOrder(int data, BinaryNode? node)// Depth First Search
+        public BinarySearchNode FindByDFSPreOrder(int data, BinarySearchNode? node)// Depth First Search
         {
             Console.WriteLine("Visited: " + node?.Data);
 
@@ -123,24 +123,24 @@ namespace DataStructure
 
             if (node.Data == data) return node;
 
-            BinaryNode leftResult = FindByDFSPreOrder(data, node?.Left);
+            BinarySearchNode leftResult = FindByDFSPreOrder(data, node?.Left);
 
             if (leftResult is not null) return leftResult;
 
-            BinaryNode rightResult = FindByDFSPreOrder(data, node?.Right);
+            BinarySearchNode rightResult = FindByDFSPreOrder(data, node?.Right);
 
             return rightResult;
         }
 
     }
 
-    public class BinaryNode
+    public class BinarySearchNode
     {
         public int Data { get; set; }
-        public BinaryNode? Left { get; set; }
-        public BinaryNode? Right { get; set; }
+        public BinarySearchNode? Left { get; set; }
+        public BinarySearchNode? Right { get; set; }
 
-        public BinaryNode(int data, BinaryNode left = null, BinaryNode rigth = null)
+        public BinarySearchNode(int data, BinarySearchNode left = null, BinarySearchNode rigth = null)
         {
             this.Data = data;
             this.Left = left;
