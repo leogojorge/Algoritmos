@@ -159,12 +159,12 @@ namespace DataStructure
         {
             if (node == null) return null;
 
-            Queue<BinarySearchNode> nodesToBeVisited = new Queue<BinarySearchNode>(); //tried to use my own StackImplamantation here, but stacks on BFS wont work as expected, because we need to access the first node added to the list of nodes of the same level, queues provide that for us, stacks will always retrieve the last node added, and that will jump a level further before visiting all the other nodes on the same level.
+            QueueArray<BinarySearchNode> nodesToBeVisited = new QueueArray<BinarySearchNode>(100); //tried to use my own StackImplamantation here, but stacks on BFS wont work as expected, because we need to access the first node added to the list of nodes of the same level, queues provide that for us, stacks will always retrieve the last node added, and that will jump a level further before visiting all the other nodes on the same level.
             nodesToBeVisited.Enqueue(this.Root);
             bool[] nodeWasVisited = new bool[100];
             nodeWasVisited[this.Root.Data] = true;
 
-            while (nodesToBeVisited.Count > 0)
+            while (nodesToBeVisited.Count() > 0)
             {
                 var currentNode = nodesToBeVisited.Dequeue();
 
