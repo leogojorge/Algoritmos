@@ -2,6 +2,11 @@
 {
     /// <summary>
     /// FIFO
+    /// A circular queue implementation with a circular search method
+    /// Choose to maintain the size while enqueue or dequeuing elements,
+    /// so we can have the amount of elements equal to the length of the array.
+    /// Rather then having the IsEmpty implementations by checking if the
+    /// pointes head and tail (EnqueuePointer and DequeuePoint) are the same.
     /// </summary>
     /// <typeparam name="T">The type of the data to be stored</typeparam>
     public class QueueArray<T>
