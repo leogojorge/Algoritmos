@@ -13,11 +13,47 @@ namespace DataStructure
     {
         static void Main(string[] args)
         {
-            OperateOnBinaryTree();
+            OperateOnQueueArray();
+            //OperateOnBinaryTree();
             //OperateOnHashTable();
             //OperateOnDoublyLinkedList();
             //OperateOnSinlgyLinkedList();
             //OperateOnStackArray();
+        }
+
+        private static void OperateOnQueueArray()
+        {
+            var queue = new QueueArray<int>(10);
+            queue.Enqueue(1);            queue.Dequeue();
+            queue.Enqueue(2);            queue.Dequeue();
+            queue.Enqueue(3);            queue.Dequeue();
+            queue.Enqueue(4);            queue.Dequeue();
+            queue.Enqueue(5);            queue.Dequeue();
+            queue.Enqueue(6);
+            queue.Enqueue(7);
+            queue.Enqueue(8);
+            queue.Enqueue(9);
+            queue.Enqueue(10);
+            queue.Enqueue(11);
+            var contais2 = queue.Contains(2);
+            var contais6 = queue.Contains(6);
+            var dq1 = queue.Dequeue();
+            var stillContais6 = queue.Contains(6);
+            queue.Enqueue(1);
+            var dq2 = queue.Dequeue();
+            var count = queue.Count();
+            var isEmpty = queue.IsEmpty();
+            var peek = queue.Peek();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
+            queue.Dequeue();
         }
 
         private static void OperateOnBinaryTree()
