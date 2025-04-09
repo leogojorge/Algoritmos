@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace DataStructure
+namespace DataStructure.Lists
 {
     public class SinglyLinkedList<T>
     {
@@ -28,14 +28,14 @@ namespace DataStructure
                 return;
             }
 
-            var node = this.Head;
+            var node = Head;
 
             do
             {
                 if (node.Next is null)
                 {
                     node.Next = newNode;
-                    this.Last = newNode;
+                    Last = newNode;
                     Size++;
 
                     return;
@@ -49,7 +49,7 @@ namespace DataStructure
         public bool Add(T value, int AtIndex)
         {
             var newNode = new LinkedNode<T>(value);
-            var node = this.Head;
+            var node = Head;
 
             for (int i = 0; i < AtIndex - 1; i++)
             {
@@ -68,7 +68,7 @@ namespace DataStructure
 
         public void AddFirstItem(T value)
         {
-            this.Head = this.Last = new LinkedNode<T>(value);
+            Head = Last = new LinkedNode<T>(value);
             Size++;
 
             return;
@@ -76,7 +76,7 @@ namespace DataStructure
 
         public void AddFirst(T value)
         {
-            this.Head = new LinkedNode<T>(value, this.Head);
+            Head = new LinkedNode<T>(value, Head);
             Size++;
 
             return;
@@ -84,26 +84,26 @@ namespace DataStructure
 
         public void AddLast(T value)
         {
-            this.Last.Next = new LinkedNode<T>(value);
-            this.Last = this.Last.Next;
+            Last.Next = new LinkedNode<T>(value);
+            Last = Last.Next;
             Size++;
         }
 
         private void SetLast(LinkedNode<T> lastNode)
         {
-            this.Last = lastNode;
+            Last = lastNode;
         }
 
         public bool Remove(T value)
         {
-            var (previousNode, node, index) = this.Find(value);
+            var (previousNode, node, index) = Find(value);
 
             if (index == -1) return false;
 
             previousNode.Next = node.Next;
 
             if (node.Next is null)
-                this.SetLast(previousNode);
+                SetLast(previousNode);
 
             Size--;
 
@@ -112,16 +112,16 @@ namespace DataStructure
 
         public bool RemoveFirst()
         {
-            if (this.Head is null)
+            if (Head is null)
                 return false;
 
-            if (this.Head.Next is null)
+            if (Head.Next is null)
             {
-                this.Head = null;
+                Head = null;
             }
             else
             {
-                this.Head = this.Head.Next;
+                Head = Head.Next;
             }
 
             Size--;
@@ -130,15 +130,15 @@ namespace DataStructure
 
         public bool RemoveLast()
         {
-            var node = this.Head;
-            var previousNode = this.Head;
+            var node = Head;
+            var previousNode = Head;
 
             do
             {
                 if (node.Next is null)
                 {
                     previousNode.Next = null;
-                    this.Last = previousNode;
+                    Last = previousNode;
 
                     Size--;
                     return true;
@@ -154,12 +154,12 @@ namespace DataStructure
 
         public T FindLast()
         {
-            return this.Last.Value;
+            return Last.Value;
         }
 
         public bool Contains(T value)
         {
-            var (previousNode, node, index) = this.Find(value);
+            var (previousNode, node, index) = Find(value);
 
             if (index == -1) return false;
 
@@ -168,15 +168,15 @@ namespace DataStructure
 
         public int GetSize()
         {
-            return this.Size;
+            return Size;
         }
 
         public (LinkedNode<T> previousNode, LinkedNode<T> result, int index) Find(T value, int endIndex = 0)
         {
-            endIndex = endIndex == 0 ? this.Size : endIndex;
+            endIndex = endIndex == 0 ? Size : endIndex;
 
-            var node = this.Head;
-            var previousNode = this.Head;
+            var node = Head;
+            var previousNode = Head;
 
             for (int i = 0; i < endIndex; i++)
             {
@@ -192,7 +192,7 @@ namespace DataStructure
 
         public void Print()
         {
-            var node = this.Head;
+            var node = Head;
 
             var print = new StringBuilder();
 
@@ -222,12 +222,12 @@ public class LinkedNode<T>
 
     public LinkedNode(T value)
     {
-        this.Value = value;
+        Value = value;
     }
 
     public LinkedNode(T value, LinkedNode<T> next)
     {
-        this.Value = value;
-        this.Next = next;
+        Value = value;
+        Next = next;
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace DataStructure
+namespace DataStructure.Lists
 {
     public class DoublyLinkedList<T>
     {
@@ -10,13 +10,13 @@ namespace DataStructure
         {
             var newNode = new DoublyLinkedNode<T>(value);
 
-            if (this.Head == null)
+            if (Head == null)
             {
-                this.Head = newNode;
+                Head = newNode;
                 return;
             }
 
-            var node = this.Head;
+            var node = Head;
 
             do
             {
@@ -34,22 +34,22 @@ namespace DataStructure
         public void AddFirst(T value)
         {
             var newNode = new DoublyLinkedNode<T>(value);
-            newNode.Next = this.Head;
+            newNode.Next = Head;
 
-            this.Head.Previous = newNode;
-            this.Head = newNode;
+            Head.Previous = newNode;
+            Head = newNode;
         }
 
         public void AddLast(T value)
         {
             var newNode = new DoublyLinkedNode<T>(value);
-            if (this.Head == null) 
+            if (Head == null) 
             {
-                this.Head = newNode;
+                Head = newNode;
                 return;
             };
 
-            var node = this.Head;
+            var node = Head;
 
             do
             {
@@ -72,9 +72,9 @@ namespace DataStructure
 
         public void AddAfter(DoublyLinkedNode<T> newNode, DoublyLinkedNode<T> afterNode)
         {
-            if (this.Head == null || afterNode is null) return;
+            if (Head == null || afterNode is null) return;
 
-            var node = this.Head;
+            var node = Head;
             do
             {
                 if (node == afterNode)
@@ -91,7 +91,7 @@ namespace DataStructure
 
         public (DoublyLinkedNode<T> node, int index) Find(T value)
         {
-            var node = this.Head;
+            var node = Head;
             int count = 0;
             do
             {
@@ -109,9 +109,9 @@ namespace DataStructure
 
         public bool Remove(T value)
         {
-            if (this.Head is null) return false;
+            if (Head is null) return false;
 
-            var node = this.Head;
+            var node = Head;
 
             do
             {
@@ -122,7 +122,7 @@ namespace DataStructure
 
                     if (isFirstNode)
                     {
-                        this.Head = node.Next;
+                        Head = node.Next;
                     }
                     else
                     {
@@ -140,7 +140,7 @@ namespace DataStructure
 
         public void CopyTo(T[] array, int arrayStartIndex)
         {
-            var node = this.Head;
+            var node = Head;
             int count = arrayStartIndex;
             while(node is not null)
             {
@@ -152,9 +152,9 @@ namespace DataStructure
 
         public int Size()
         {
-            if (this.Head is null) return 0;
+            if (Head is null) return 0;
 
-            var node = this.Head;
+            var node = Head;
             int count = 0;
 
             while (node is not null)
@@ -168,7 +168,7 @@ namespace DataStructure
 
         public void Print()
         {
-            var node = this.Head;
+            var node = Head;
 
             var print = new StringBuilder();
 
@@ -196,7 +196,7 @@ namespace DataStructure
 
         public DoublyLinkedNode(T value)
         {
-            this.Value = value;
+            Value = value;
         }
     }
 }

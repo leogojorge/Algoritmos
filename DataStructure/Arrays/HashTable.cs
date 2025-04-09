@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using System;
 
-namespace DataStructure
+namespace DataStructure.Arrays
 {
     public class HashTable
     {
@@ -19,45 +19,45 @@ namespace DataStructure
 
         public HashTable(int capacity)
         {
-            this.Capacity = capacity;
-            this.Bucket = new string[this.Capacity];
-            this.HashModulator = GenerateHashModulator();
+            Capacity = capacity;
+            Bucket = new string[Capacity];
+            HashModulator = GenerateHashModulator();
         }
 
         public float CalculateLoadFactor()
         {
-            float loadFactor = (float)this.BucketsFilled / this.Capacity;
+            float loadFactor = (float)BucketsFilled / Capacity;
 
             if (loadFactor > 0.75)
-                this.Resize();
+                Resize();
 
             return loadFactor;
         }
 
         private void Resize()
         {
-            int oldCapacity = this.Capacity;
-            this.Capacity = this.Capacity * 2;
-            var newBucket = new string[this.Capacity];
-            this.HashModulator = this.GenerateHashModulator();
-            this.LoadFactor = this.CalculateLoadFactor();
-            this.CollisionCount = 0;
+            int oldCapacity = Capacity;
+            Capacity = Capacity * 2;
+            var newBucket = new string[Capacity];
+            HashModulator = GenerateHashModulator();
+            LoadFactor = CalculateLoadFactor();
+            CollisionCount = 0;
 
-            this.AddForResizing(oldCapacity, newBucket);
+            AddForResizing(oldCapacity, newBucket);
 
-            this.Bucket = newBucket;
-            Console.WriteLine("Resized to capacity "+ this.Capacity);
+            Bucket = newBucket;
+            Console.WriteLine("Resized to capacity "+ Capacity);
         }
 
         private void AddForResizing(int oldCapacity, string[] newBucket)
         {
             for (int i = 0; i < oldCapacity; i++)
             {
-                string value = this.Bucket[i];
+                string value = Bucket[i];
 
                 if (value is null) continue;
 
-                var hashCode = this.GetHashCode(this.Bucket[i]);
+                var hashCode = GetHashCode(Bucket[i]);
                 var node = newBucket[hashCode];
 
                 if (node == null)
@@ -67,7 +67,7 @@ namespace DataStructure
                 else
                 {
                     int x = hashCode + 1;
-                    for (; x < this.Capacity; x++)
+                    for (; x < Capacity; x++)
                     {
                         if (newBucket[x] == null)
                         {
@@ -76,7 +76,7 @@ namespace DataStructure
                         }
                     }
 
-                    if (x == this.Capacity - 1)
+                    if (x == Capacity - 1)
                     {
                         x = 0;
                     }
@@ -86,19 +86,19 @@ namespace DataStructure
 
         private void AddForResizingWithCollision(string[] newBucket, int index, string value)
         {
-            this.CollisionCount++;
+            CollisionCount++;
             AddForResizing(newBucket, index, value);
         }
 
         private void AddForResizing(string[] newBucket, int index, string value)
         {
             newBucket[index] = value;
-            this.LoadFactor = this.CalculateLoadFactor();
+            LoadFactor = CalculateLoadFactor();
         }
 
         private int GenerateHashModulator() //find the closest minor prime number from capacity
         {
-            for (int i = this.Capacity; i > 0; i--)
+            for (int i = Capacity; i > 0; i--)
             {
                 if (i % 2 == 0) continue; //excluding pair numbers
 
@@ -131,44 +131,44 @@ namespace DataStructure
 
         private void Add(int index, string value)
         {
-            this.Bucket[index] = value;
-            this.BucketsFilled++;
-            this.LoadFactor = this.CalculateLoadFactor();
+            Bucket[index] = value;
+            BucketsFilled++;
+            LoadFactor = CalculateLoadFactor();
         }
 
         private void AddWithCollision(int index, string value)
         {
-            this.Bucket[index] = value;
-            this.BucketsFilled++;
-            this.LoadFactor = this.CalculateLoadFactor();
-            this.CollisionCount++;
+            Bucket[index] = value;
+            BucketsFilled++;
+            LoadFactor = CalculateLoadFactor();
+            CollisionCount++;
         }
 
         public void Add(string value)
         {
-            int hashCode = this.GetHashCode(value);
+            int hashCode = GetHashCode(value);
 
-            var node = this.Bucket[hashCode];
+            var node = Bucket[hashCode];
 
             if (node is null)
             {
-                this.Add(hashCode, value);
+                Add(hashCode, value);
                 return;
             }
             else
             {
 
                 int i = hashCode + 1;
-                for (; i < this.Bucket.Length; i++)
+                for (; i < Bucket.Length; i++)
                 {
-                    if (this.Bucket[i] == null)
+                    if (Bucket[i] == null)
                     {
-                        this.AddWithCollision(i, value);
+                        AddWithCollision(i, value);
                         return;
                     }
                 }
 
-                if (i == this.Bucket.Length - 1)
+                if (i == Bucket.Length - 1)
                 {
                     i = 0;
                 }
@@ -177,13 +177,13 @@ namespace DataStructure
 
         public int Find(string value)
         {
-            int hashCode = this.GetHashCode(value);
+            int hashCode = GetHashCode(value);
 
-            for (int i = hashCode; i < this.Bucket.Length; i++)
+            for (int i = hashCode; i < Bucket.Length; i++)
             {
-                if (this.Bucket[i] == value) return i;
+                if (Bucket[i] == value) return i;
 
-                if (i == this.Bucket.Length - 1)
+                if (i == Bucket.Length - 1)
                 {
                     i = 0;
                 }
@@ -194,9 +194,9 @@ namespace DataStructure
 
         public void Print()
         {
-            for (int i = 0; i < this.Bucket.Length; i++)
+            for (int i = 0; i < Bucket.Length; i++)
             {
-                Console.WriteLine(i + " : " + this.Bucket[i]);
+                Console.WriteLine(i + " : " + Bucket[i]);
             }
         }
     }
@@ -208,8 +208,8 @@ namespace DataStructure
 
         public HashTableNode(int key, string value)
         {
-            this.Key = key;
-            this.Value = value;
+            Key = key;
+            Value = value;
         }
     }
 }

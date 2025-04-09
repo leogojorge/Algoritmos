@@ -1,4 +1,4 @@
-﻿namespace DataStructure
+﻿namespace DataStructure.Arrays
 {
     /// <summary>
     /// FIFO
@@ -19,42 +19,42 @@
 
         public QueueArray()
         {
-            this.Array = new T[100];
+            Array = new T[100];
         }
 
         public QueueArray(int capacity)
         {
-            this.Capacity = capacity;
-            this.Array = new T[this.Capacity];
+            Capacity = capacity;
+            Array = new T[Capacity];
         }
 
         public void Enqueue(T data)
         {
-            if (this.IsFull())
+            if (IsFull())
             {
                 Console.WriteLine("Queue is full. Can not enqueue any more elements");
                 return;
             }
 
-            if (EnqueuePointer == this.Array.Length)
+            if (EnqueuePointer == Array.Length)
                 EnqueuePointer = 0;
 
-            this.Array[EnqueuePointer] = data;
+            Array[EnqueuePointer] = data;
             EnqueuePointer++;
-            this.Size++;
+            Size++;
         }
 
         public T Dequeue()
         {
-            if (this.IsEmpty())
-                return default(T);
+            if (IsEmpty())
+                return default;
 
-            if (DequeuePointer == this.Array.Length)
+            if (DequeuePointer == Array.Length)
                 DequeuePointer = 0;
 
-            var data = this.Array[DequeuePointer];
+            var data = Array[DequeuePointer];
             DequeuePointer++;
-            this.Size--;
+            Size--;
             return data;
         }
 
@@ -65,34 +65,34 @@
 
         private bool IsFull()
         {
-            return this.Size == this.Array.Length - 1;
+            return Size == Array.Length - 1;
         }
 
 
         public bool IsEmpty()
         {
-            return this.Size == 0; //or this.EnqueuePointer == this.DequeuePointer
+            return Size == 0; //or this.EnqueuePointer == this.DequeuePointer
         }
 
         public int Count()
         {
-            return this.Size;
+            return Size;
         }
 
         public bool Contains(T data)
         {
             if (IsEmpty()) return false;
 
-            int startIndex = this.DequeuePointer;
-            int endIndex = this.EnqueuePointer;
+            int startIndex = DequeuePointer;
+            int endIndex = EnqueuePointer;
 
             for (int elementsSearched = 0; elementsSearched < Size; elementsSearched++)
             {
-                if (this.Array[startIndex].Equals(data)) return true;
+                if (Array[startIndex].Equals(data)) return true;
 
                 if (startIndex == endIndex) return false;
 
-                if (startIndex == this.Array.Length - 1)
+                if (startIndex == Array.Length - 1)
                     startIndex = 0;
 
                 startIndex++;

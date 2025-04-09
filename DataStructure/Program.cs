@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Xml.XPath;
+using DataStructure.Trees;
 
 namespace DataStructure
 {

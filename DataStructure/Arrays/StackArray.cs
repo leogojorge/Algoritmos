@@ -1,4 +1,4 @@
-﻿namespace DataStructure
+﻿namespace DataStructure.Arrays
 {
     public class StackArray<T>
     {
@@ -8,14 +8,14 @@
 
         public StackArray(int size)
         {
-            this.Array = new T[size];
+            Array = new T[size];
         }
 
         public int Search(T value)
         {
             for (int i = 0; i <= Top; i++)
             {
-                if (this.Array[i].Equals(value))
+                if (Array[i].Equals(value))
                     return i;
             }
 
@@ -24,13 +24,13 @@
 
         public void Push(T value)
         {
-            this.Array[Top + 1] = value;
+            Array[Top + 1] = value;
             Top++;
         }
 
         public T Pop()
         {
-            var result = this.Array[Top];
+            var result = Array[Top];
             Top--;
 
             return result;
@@ -38,7 +38,7 @@
 
         public T Peek()
         {
-            return this.Array[Top];
+            return Array[Top];
         }
 
         public int Size()
@@ -62,7 +62,7 @@
 
             for (int i = 0; i <= Top; i++)
             {
-                Console.Write(this.Array[i] + ",");
+                Console.Write(Array[i] + ",");
             }
 
             Console.WriteLine("]");
