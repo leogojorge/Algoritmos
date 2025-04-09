@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace DataStructure.Trees
 {
-    public class BinaryNode
+    public class BinaryNode<T>
     {
         public int Data { get; set; }
-        public BinaryNode? Left { get; set; }
-        public BinaryNode? Right { get; set; }
+        public BinaryNode<T>? Left { get; set; }
+        public BinaryNode<T>? Right { get; set; }
 
-        public BinaryNode(int data, BinaryNode left = null, BinaryNode rigth = null)
+        public BinaryNode(int data, BinaryNode<T> left = null, BinaryNode<T> rigth = null)
         {
             Data = data;
             Left = left;
             Right = rigth;
         }
 
-        public List<BinaryNode> GetChilds()
+        public List<BinaryNode<T>> GetChilds()
         {
-            var childs = new List<BinaryNode>();
+            var childs = new List<BinaryNode<T>>();
 
             if (Left != null)
                 childs.Add(Left);
