@@ -6,37 +6,37 @@ namespace DataStructure.Trees
 {
     public class BinarySearchTree //is not the same as a AVL tree. BST are not self balancing trees as AVLs.
     {
-        public BinaryNode Root { get; set; }
+        public BinaryNode<int> Root { get; set; }
 
         public int SumTree()
         {
             return SumTree(Root);
         }
 
-        public int SumTree(BinaryNode node)
+        public int SumTree(BinaryNode<int> node)
         {
             if (node is null) return 0;
 
             return node.Data + SumTree(node.Left) + SumTree(node.Right);
         }
 
-        public BinaryNode Add(int data)
+        public BinaryNode<int> Add(int data)
         {
             return Add(Root, data);
         }
 
-        public BinaryNode Add(BinaryNode node, int data)
+        public BinaryNode<int> Add(BinaryNode<int> node, int data)
         {
             if (Root is null)
             {
-                Root = new BinaryNode(data);
+                Root = new BinaryNode<int>(data);
                 Console.WriteLine("Adding Root" + data);
                 return Root;
             }
 
             if (node is null)
             {
-                return new BinaryNode(data);
+                return new BinaryNode<int>(data);
             }
 
             if (node.Data > data)
@@ -51,7 +51,7 @@ namespace DataStructure.Trees
             return node;
         }
 
-        public BinaryNode Remove(int data)
+        public BinaryNode<int> Remove(int data)
         {
             if (FindByDFSPreOrder(data) is null)
                 return null;
@@ -59,7 +59,7 @@ namespace DataStructure.Trees
             return Remove(Root, data);
         }
 
-        public BinaryNode Remove(BinaryNode node, int data)
+        public BinaryNode<int> Remove(BinaryNode<int> node, int data)
         {
             if (node is null) return null;
 
@@ -91,7 +91,7 @@ namespace DataStructure.Trees
             return node;
         }
 
-        private int FindClosestNumberBiggerThan(BinaryNode node)
+        private int FindClosestNumberBiggerThan(BinaryNode<int> node)
         {
             node = node.Right;
             while (node.Left is not null)
@@ -101,7 +101,7 @@ namespace DataStructure.Trees
             return node.Data;
         }
 
-        private int FindClosestNumberSmallerThan(BinaryNode node)
+        private int FindClosestNumberSmallerThan(BinaryNode<int> node)
         {
             node = node.Left;
             while (node is not null)
@@ -111,12 +111,12 @@ namespace DataStructure.Trees
             return node.Data;
         }
 
-        public BinaryNode FindByDFSPreOrder(int data)
+        public BinaryNode<int> FindByDFSPreOrder(int data)
         {
             return FindByDeepthFirstSearch(data, Root);
         }
 
-        public BinaryNode FindByDeepthFirstSearch(int data, BinaryNode? node)// Depth First Search
+        public BinaryNode<int> FindByDeepthFirstSearch(int data, BinaryNode<int>? node)// Depth First Search
         {
             Console.WriteLine("Visited: " + node?.Data);
 
@@ -124,16 +124,16 @@ namespace DataStructure.Trees
 
             if (node.Data == data) return node;
 
-            BinaryNode leftResult = FindByDeepthFirstSearch(data, node?.Left);
+            BinaryNode<int> leftResult = FindByDeepthFirstSearch(data, node?.Left);
 
             if (leftResult is not null) return leftResult;
 
-            BinaryNode rightResult = FindByDeepthFirstSearch(data, node?.Right);
+            BinaryNode<int> rightResult = FindByDeepthFirstSearch(data, node?.Right);
 
             return rightResult;
         }
 
-        public BinaryNode FindByBreadthFirstSearch(int data)
+        public BinaryNode<int> FindByBreadthFirstSearch(int data)
         {
             return FindByBreadthFirstSearch(Root, data);
         }
@@ -156,11 +156,11 @@ namespace DataStructure.Trees
         /// <param name="node">The node we want to start the search from</param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public BinaryNode FindByBreadthFirstSearch(BinaryNode node, int data)
+        public BinaryNode<int> FindByBreadthFirstSearch(BinaryNode<int> node, int data)
         {
             if (node == null) return null;
 
-            QueueArray<BinaryNode> nodesToBeVisited = new QueueArray<BinaryNode>(100); //tried to use my own StackImplamantation here, but stacks on BFS wont work as expected, because we need to access the first node added to the list of nodes of the same level, queues provide that for us, stacks will always retrieve the last node added, and that will jump a level further before visiting all the other nodes on the same level.
+            QueueArray<BinaryNode<int>> nodesToBeVisited = new QueueArray<BinaryNode<int>>(100); //tried to use my own StackImplamantation here, but stacks on BFS wont work as expected, because we need to access the first node added to the list of nodes of the same level, queues provide that for us, stacks will always retrieve the last node added, and that will jump a level further before visiting all the other nodes on the same level.
             nodesToBeVisited.Enqueue(Root);
             bool[] nodeWasVisited = new bool[100];
             nodeWasVisited[Root.Data] = true;

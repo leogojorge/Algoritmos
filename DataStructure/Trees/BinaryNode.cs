@@ -8,11 +8,11 @@ namespace DataStructure.Trees
 {
     public class BinaryNode<T>
     {
-        public int Data { get; set; }
+        public T Data { get; set; }
         public BinaryNode<T>? Left { get; set; }
         public BinaryNode<T>? Right { get; set; }
 
-        public BinaryNode(int data, BinaryNode<T> left = null, BinaryNode<T> rigth = null)
+        public BinaryNode(T data, BinaryNode<T> left = null, BinaryNode<T> rigth = null)
         {
             Data = data;
             Left = left;
