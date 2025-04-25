@@ -9,6 +9,7 @@ namespace DataStructure.Trees
     public class BinaryNode<T>
     {
         public T Data { get; set; }
+        public int Heigth { get; set; } = 1;
         public BinaryNode<T>? Left { get; set; }
         public BinaryNode<T>? Right { get; set; }
 

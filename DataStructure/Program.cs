@@ -19,11 +19,11 @@ namespace DataStructure
         private static void OperateOnQueueArray()
         {
             var queue = new QueueArray<int>(10);
-            queue.Enqueue(1);            queue.Dequeue();
-            queue.Enqueue(2);            queue.Dequeue();
-            queue.Enqueue(3);            queue.Dequeue();
-            queue.Enqueue(4);            queue.Dequeue();
-            queue.Enqueue(5);            queue.Dequeue();
+            queue.Enqueue(1); queue.Dequeue();
+            queue.Enqueue(2); queue.Dequeue();
+            queue.Enqueue(3); queue.Dequeue();
+            queue.Enqueue(4); queue.Dequeue();
+            queue.Enqueue(5); queue.Dequeue();
             queue.Enqueue(6);
             queue.Enqueue(7);
             queue.Enqueue(8);
@@ -60,7 +60,7 @@ namespace DataStructure
             tree.Add(10);
             tree.Add(3);
             tree.Add(4);
-            
+
             var result = tree.SumTree();
             Console.WriteLine(result);
 
@@ -73,7 +73,7 @@ namespace DataStructure
 
             var removedNode = tree.Remove(3);
 
-            Console.WriteLine("Node removed: "+ removedNode.Data);
+            Console.WriteLine("Node removed: " + removedNode.Data);
 
             var removedNode2 = tree.Remove(1);
 
