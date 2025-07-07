@@ -39,7 +39,7 @@ namespace Algoritmos.LeetCode
         {
             if (root is null) return new List<IList<int>>();
 
-            var result = new List<IList<int>> { new List<int> { root.val } };
+            var result = new List<IList<int>>();
 
             var queue = new Queue<TreeNode>();
 
