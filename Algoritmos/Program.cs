@@ -1,6 +1,7 @@
 ﻿using Algoritmos.Data;
 using Algoritmos.LeetCode;
 using Algoritmos.Sort;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace Algoritmos
@@ -9,6 +10,8 @@ namespace Algoritmos
     {
         static void Main(string[] args)
         {
+            CallLeetCodeChallenges();
+
             RemoveElement27.RemoveElement([0],0);
 
             FindFirstIndex.StrStr("hello", "ll");
@@ -72,6 +75,17 @@ namespace Algoritmos
                 Console.WriteLine();
                 Console.WriteLine("Next iteration **************************");
             }
+        }
+
+        private static void CallLeetCodeChallenges()
+        {
+            BinaryTreeLevelOrderTraversal102.Call();
+            BaseballGame682.Call();
+            NextGreaterElementI496.Call();
+            ValidParentheses20.Call();
+            ReverseLinkedList.Call();
+            PlusOne66.Call();
+            SearchInsertPosition35.Call();
         }
 
         public static string ArrayAsString(int[] array)
