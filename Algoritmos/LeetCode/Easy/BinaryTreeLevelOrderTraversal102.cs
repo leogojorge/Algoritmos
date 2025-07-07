@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Algoritmos.LeetCode
+namespace Algoritmos.LeetCode.Easy
 {
     public class TreeNode
     {

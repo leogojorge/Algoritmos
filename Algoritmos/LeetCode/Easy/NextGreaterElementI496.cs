@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Algoritmos.LeetCode
+namespace Algoritmos.LeetCode.Easy
 {
     public static class NextGreaterElementI496
     {

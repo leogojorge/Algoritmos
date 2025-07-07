@@ -1,5 +1,5 @@
 ﻿using Algoritmos.Data;
-using Algoritmos.LeetCode;
+using Algoritmos.LeetCode.Easy;
 using Algoritmos.Sort;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;

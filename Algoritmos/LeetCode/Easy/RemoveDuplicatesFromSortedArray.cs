@@ -1,4 +1,4 @@
-﻿namespace Algoritmos.LeetCode
+﻿namespace Algoritmos.LeetCode.Easy
 {
     /// <summary>
     /// 
