@@ -1,5 +1,6 @@
 ﻿using Algoritmos.Data;
 using Algoritmos.LeetCode.Easy;
+using Algoritmos.LeetCode.Medium;
 using Algoritmos.Sort;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -45,7 +46,7 @@ namespace Algoritmos
                 SelectionSorter.SelectionSort(listForSelection, out int timesPerformedTheSwapForSelectionSort, out int timesNotPerformedTheSwapForSelectionSort, out int timesCheckedForSelectionSort);
                 BubbleSorter.BubbleSort(listForBubble, out int timesPerformedTheSwapForBubbleSort, out int timesNotPerformedTheSwapForBubbleSort, out int timesCheckedForBubbleSort);
                 InsertionSorter.InsertionSort(listForInsertion, out int timesPerformedTheSwapForInsertionSort, out int timesNotPerformedTheSwapForInsertionSort, out int timesCheckedForInsertionSort);
-                MergeSorter.MergeSort(listForMerge);
+                MergeSorter.Sort(listForMerge);
 
                 Console.WriteLine("List sorted with selection - " + ArrayAsString(listForSelection));
                 Console.WriteLine("List sorted with bubble    - " + ArrayAsString(listForBubble));
@@ -79,6 +80,12 @@ namespace Algoritmos
 
         private static void CallLeetCodeChallenges()
         {
+            //KthLargestElementinanArray215.Call();
+            GroupAnagrams49.Call();
+            EvaluateReversePolishNotation150.Call();
+            ReorderList143.Call();
+            FlattenBinaryTreeToLinkedList114.Call();
+            SimplifyPath71.Call();
             BinaryTreeLevelOrderTraversal102.Call();
             BaseballGame682.Call();
             NextGreaterElementI496.Call();
