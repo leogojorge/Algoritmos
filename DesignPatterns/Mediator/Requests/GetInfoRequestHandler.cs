@@ -1,6 +1,6 @@
 ﻿using DesignPatterns.Mediator;
 
-namespace DesignPatterns.Features
+namespace DesignPatterns.Mediator.Requests
 {
     public class GetInfoRequestHandler : IRequestHandler<QueryRequest, List<string>>
     {

@@ -1,6 +1,6 @@
 ﻿using DesignPatterns.Mediator;
 
-namespace DesignPatterns.Features
+namespace DesignPatterns.Mediator.Requests
 {
     public record QueryRequest : IRequest<List<string>>;
 }

@@ -1,5 +1,6 @@
-using DesignPatterns.Features;
 using DesignPatterns.Mediator;
+using DesignPatterns.Mediator.Requests;
+using DesignPatterns.Notification.WithDelegate;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DesignPatterns.Controllers;
@@ -17,11 +18,27 @@ public class InfoController : ControllerBase
         _sender = sender;
     }
 
-    [HttpGet]
-    public IActionResult Get(CancellationToken cancellationToken)
+    [HttpGet("mediator")]
+    public IActionResult GetWithMediator(CancellationToken cancellationToken)
     {
         var infos = _sender.Send(new QueryRequest(), cancellationToken);
 
         return Ok(infos);
+    }
+
+    [HttpGet("notification/delegate")]
+    public IActionResult NotifyWithDelegate(CancellationToken cancellationToken)
+    {
+        var service = new AService();
+        service.ShowCount += OnShowCount;
+        service.DoSomething();
+
+
+        return Ok();
+    }
+
+    private void OnShowCount(int counter)
+    {
+        Console.WriteLine($"Somethins was done and was notified by delegate");
     }
 }
