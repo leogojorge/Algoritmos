@@ -1,7 +1,4 @@
-﻿using System.Text;
-using Algoritmos.LeetCode.Easy;
-
-namespace Algoritmos.LeetCode.Medium
+﻿namespace Algoritmos.LeetCode.Medium
 {
     public static class SimplifyPath71
     {

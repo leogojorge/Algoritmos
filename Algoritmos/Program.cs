@@ -80,7 +80,9 @@ namespace Algoritmos
 
         private static void CallLeetCodeChallenges()
         {
-            //KthLargestElementinanArray215.Call();
+            _3Sum.Call();
+            HowManyNumbersAreSmallerThantheCurrentNumber1365.Call();
+            FindMostFrequentVowelandConsonant3541.Call();
             GroupAnagrams49.Call();
             EvaluateReversePolishNotation150.Call();
             ReorderList143.Call();
